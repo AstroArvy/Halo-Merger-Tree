@@ -1,0 +1,23 @@
+Readme guide for Halos. Please read this carefully before you use the program.
+
+This is a binary merger tree that follows the Press-Schecter formalism and creates a halo merger history.
+The halos start from redshift z=0 and go back in time (or high in redshift) to a higher redshift (z=z') {z' is defined by the user}. 
+
+To reach from redshift z=0 to z=z', the merger tree goes a certain number of steps {defined by the user} where the redshift difference between each time step is dz {defined by the user}. In each step a halo divides into two seperate halos (binary). The user decides a minimum mass for the halos (Mmin) and all the halos above this mass are saved in the merger history. If the Mmin is set to 0, all the halos will be included in the history and the merger tree could become very slow.
+
+**Note: THe higher the z and the more the number of timesteps, the larger is the merger history, for example, after 10 time steps, the total number of halos will be 2^10, similarly after 100 timesteps, there will be 2^100 halos. Also, the larger the redshift difference between two timesteps, the less accurate the results are. 
+
+Hence, try to choose the inputs carefully to keep the code fast. A value of dz=0.05 gives around 235 steps to reach z=6 from z=0 and gives an accurate result. Also, a minimum halo mass larger than 2*10^7 solar masses should work well for the speed of the code.
+
+
+1. First fill in all the details in the form 'Halos':
+
+	1. Halo Mass range at z=0 in Log10: Mass range of the halos in logarithmic solar mass that are created at redshift 0 according to the Press-Schechter Formalism. 
+	2. Minimum Halo Mass (Mlim): Minimum mass of the halo saved in the merger history in solar masses.
+	3.
+	4.
+	5.
+	
+2. Click on save location to choose the directory where you would like to save the halos. This will create a folder 'halos' inside the chosen directory whill will contain the halos data.
+
+3. Finally click on the 'create halos' button
