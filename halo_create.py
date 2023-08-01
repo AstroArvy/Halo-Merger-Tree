@@ -37,10 +37,10 @@ sigma80=0.811
 
 z0=0
 zf=6
-samples=100
+samples=1000
 steps=10
-Mlim=2e9
-Mmin=12.666666666666668
+Mlim=2e8
+Mmin=12.097777777777777
 Mmax=14.0
 
 
@@ -200,15 +200,6 @@ def outputS(n,dw,Smax,Sinitial):
     return S
 
 
-root = Tk()
-root.geometry('{}x{}'.format(400, 100))
-
-progress_var = DoubleVar() #here you have ints but when calc. %'s usually floats
-theLabel = Label(root, text="Creating halos")
-theLabel.pack()
-progressbar = Progressbar(root, variable=progress_var, maximum=samples)
-
-
 def halo_create(z0,zf,samples,steps,Mlim, Mmin, Mmax):
     n = samples
     iter_step = 100/n
@@ -217,19 +208,17 @@ def halo_create(z0,zf,samples,steps,Mlim, Mmin, Mmax):
     Smax=varipsapp(Mlim)
     halo_sample=halo_samples(Mmin, Mmax, z0,samples)
     dw=1.68*(1+(zf-z0))/steps
-    progressbar.pack(fill=X, expand=1)
-    progressbar.start()
-    for i in tqdm(range(samples)):
+
+    for i in tqdm(range(samples), desc='Creating Halos'):
         filenum=i
-        progress_var.set(i)
+        #progress_var.set(i)
         result = outputS(steps,dw,Smax,varipsapp(halo_sample[i]))
         result=np.array(result,dtype=object)
         data=np.transpose(result)
         my_df = pd.DataFrame(data, columns=['halomass'])
         my_df.to_pickle("halos/test{:03d}".format(filenum))
         time.sleep(0.02)
-        root.update_idletasks()
-    root.after(100,halo_create)
+
  
 halo_create(float(z0),float(zf),int(samples),int(steps),float(Mlim),float(Mmin),float(Mmax))    
     
